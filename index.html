@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect - Professional Blood Donation System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --primary-color: #0066cc;
+            --primary-hover: #0052a3;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            --font-size-5xl: 3rem;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-10: 2.5rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+            --spacing-20: 5rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--gray-50);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Landing Page Styles */
+        .landing-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .landing-left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .landing-content {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-3);
+            font-weight: 700;
+            font-size: var(--font-size-2xl);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .logo-icon {
+            font-size: var(--font-size-3xl);
+        }
+
+        .logo-text {
+            color: var(--gray-900);
+        }
+
+        .landing-title {
+            font-size: var(--font-size-5xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-6);
+            line-height: 1.1;
+        }
+
+        .landing-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-12);
+            line-height: 1.5;
+        }
+
+        .landing-cta {
+            text-align: center;
+        }
+
+        .cta-text {
+            margin-top: var(--spacing-4);
+            color: var(--gray-600);
+        }
+
+        .cta-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .cta-text a:hover {
+            text-decoration: underline;
+        }
+
+        .landing-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-6);
+            max-width: 500px;
+        }
+
+        .image-card {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .donation-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--white);
+            padding: var(--spacing-6) var(--spacing-4) var(--spacing-4);
+        }
+
+        .image-overlay h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-1);
+        }
+
+        .image-overlay p {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+
+        /* Auth Container */
+        .auth-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .auth-left {
+            background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+            color: var(--white);
+        }
+
+        .auth-brand {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .auth-brand .logo {
+            justify-content: center;
+            margin-bottom: var(--spacing-8);
+            color: var(--white);
+        }
+
+        .auth-brand .logo-text {
+            color: var(--white);
+        }
+
+        .auth-brand h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .auth-brand p {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .auth-right {
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .auth-header h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .auth-header p {
+            color: var(--gray-600);
+        }
+
+        /* Main Container (Role Selection) */
+        .main-container {
+            min-height: 100vh;
+            background-color: var(--gray-50);
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: var(--spacing-4) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+        }
+
+        .user-welcome {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .nav-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Role Selection Main */
+        .role-selection-main {
+            padding: var(--spacing-16) 0;
+        }
+
+        .role-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        .role-header {
+            text-align: center;
+            margin-bottom: var(--spacing-16);
+        }
+
+        .role-title {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+            line-height: 1.2;
+        }
+
+        .role-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-12);
+            margin-bottom: var(--spacing-20);
+        }
+
+        .role-card {
+            background-color: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-12);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .role-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-6);
+        }
+
+        .donor-icon {
+            color: var(--danger-color);
+        }
+
+        .seeker-icon {
+            color: var(--primary-color);
+        }
+
+        .card-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .card-description {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-8);
+            line-height: 1.6;
+            font-size: var(--font-size-lg);
+        }
+
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .feature {
+            color: var(--gray-700);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .card-arrow {
+            font-size: var(--font-size-2xl);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: var(--spacing-16) 0;
+            background-color: var(--white);
+            border-radius: var(--radius-2xl);
+            margin-top: var(--spacing-16);
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: var(--font-size-3xl);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-12);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-8);
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: var(--spacing-6);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .feature-item h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .feature-item p {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        /* Forms */
+        .page-container {
+            min-height: 100vh;
+            background-color: var(--gray-50);
+        }
+
+        .main-content {
+            padding: var(--spacing-8) 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-8);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--spacing-12);
+        }
+
+        .form-header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .form-header p {
+            font-size: var(--font-size-lg);
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .auth-form,
+        .donor-form,
+        .seeker-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-6);
+        }
+
+        .form-section {
+            background-color: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .form-section .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-3);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-6);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-6);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-2);
+            font-size: var(--font-size-sm);
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            transition: all 0.2s ease;
+            background-color: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .form-group input[readonly] {
+            background-color: var(--gray-100);
+            color: var(--gray-500);
+        }
+
+        .password-hint {
+            font-size: var(--font-size-xs);
+            color: var(--gray-500);
+            margin-top: var(--spacing-1);
+        }
+
+        /* Radio Groups */
+        .radio-group {
+            display: flex;
+            gap: var(--spacing-6);
+            margin-top: var(--spacing-2);
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .radio-label input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .radio-label input[type="radio"]:checked + .radio-custom {
+            border-color: var(--primary-color);
+        }
+
+        .radio-label input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        /* File Upload */
+        .file-upload {
+            position: relative;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--gray-50);
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 102, 204, 0.05);
+        }
+
+        .file-upload-icon {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .file-upload-text {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Location Section */
+        .location-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+        }
+
+        .location-display {
+            padding: var(--spacing-4);
+            background-color: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            color: var(--gray-700);
+            display: none;
+        }
+
+        .location-display.show {
+            display: block;
+        }
+
+        .coordinates-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .coordinate-item {
+            background: var(--white);
+            padding: var(--spacing-3);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .coordinate-label {
+            font-size: var(--font-size-xs);
+            color: var(--gray-500);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .coordinate-value {
+            font-size: var(--font-size-sm);
+            color: var(--gray-900);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        .map-container {
+            margin-top: var(--spacing-4);
+        }
+
+        .map-display {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: var(--danger-color);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            40% {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            60% {
+                transform: translate(-50%, -50%) translateY(-5px);
+            }
+        }
+
+        .map-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Results Container */
+        .results-container {
+            margin-top: var(--spacing-12);
+            background-color: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-8);
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .results-header h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .results-count {
+            font-size: var(--font-size-sm);
+            color: var(--gray-600);
+            background-color: var(--gray-100);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: var(--radius-sm);
+        }
+
+        .donor-results {
+            display: grid;
+            gap: var(--spacing-4);
+        }
+
+        .donor-card-result {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-6);
+            transition: all 0.2s ease;
+        }
+
+        .donor-card-result:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .donor-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-4);
+        }
+
+        .donor-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .donor-field-label {
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-1);
+        }
+
+        .donor-field-value {
+            font-size: var(--font-size-sm);
+            color: var(--gray-900);
+            font-weight: 500;
+        }
+
+        .blood-group-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-1) var(--spacing-3);
+            background-color: var(--danger-color);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-12);
+            color: var(--gray-500);
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .no-results h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .no-results p {
+            color: var(--gray-500);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-3) var(--spacing-6);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            line-height: 1;
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--gray-700);
+            border-color: var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .btn-large {
+            padding: var(--spacing-4) var(--spacing-10);
+            font-size: var(--font-size-lg);
+            border-radius: var(--radius-lg);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-icon {
+            font-size: var(--font-size-lg);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--spacing-6);
+            padding-top: var(--spacing-6);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: var(--spacing-6) var(--spacing-6) 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .modal-close {
+            color: var(--gray-400);
+            font-size: var(--font-size-2xl);
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--gray-600);
+        }
+
+        .modal-body {
+            padding: var(--spacing-6);
+            text-align: center;
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .modal-icon.success::before {
+            content: '✅';
+        }
+
+        .modal-icon.error::before {
+            content: '❌';
+        }
+
+        .modal-icon.info::before {
+            content: 'ℹ️';
+        }
+
+        .modal-body p {
+            font-size: var(--font-size-base);
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .landing-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .landing-right {
+                display: none;
+            }
+            
+            .auth-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-left {
+                display: none;
+            }
+            
+            .landing-title {
+                font-size: var(--font-size-3xl);
+            }
+            
+            .landing-subtitle {
+                font-size: var(--font-size-lg);
+            }
+            
+            .role-cards {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-8);
+            }
+            
+            .role-card {
+                padding: var(--spacing-8);
+            }
+            
+            .form-row,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-content {
+                padding: 0 var(--spacing-4);
+            }
+            
+            .role-content {
+                padding: 0 var(--spacing-4);
+            }
+            
+            .form-container {
+                padding: var(--spacing-4);
+            }
+
+            .coordinates-display {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .landing-left {
+                padding: var(--spacing-4);
+            }
+            
+            .landing-content {
+                max-width: 100%;
+            }
+            
+            .role-selection-main {
+                padding: var(--spacing-8) 0;
+            }
+            
+            .role-header {
+                margin-bottom: var(--spacing-8);
+            }
+            
+            .role-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .role-subtitle {
+                font-size: var(--font-size-base);
+            }
+            
+            .form-section {
+                padding: var(--spacing-4);
+            }
+            
+            .modal-content {
+                margin: 20% auto;
+                width: 95%;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="page-section active">
+        <div class="landing-container">
+            <!-- Left Side - Content -->
+            <div class="landing-left">
+                <div class="landing-content">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    
+                    <h1 class="landing-title">Save Lives, Donate Blood</h1>
+                    <p class="landing-subtitle">Connect blood donors with those in need. Join our community and make a difference today.</p>
+                    
+                    <div class="landing-cta">
+                        <button onclick="showSignUp()" class="btn btn-primary btn-large">Get Started</button>
+                        <p class="cta-text">Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side - Images -->
+            <div class="landing-right">
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="https://images.pexels.com/photos/6823568/pexels-photo-6823568.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blood donation" class="donation-image">
+                        <div class="image-overlay">
+                            <h3>Donate Blood</h3>
+                            <p>Be a hero in someone's story</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.pexels.com/photos/6823564/pexels-photo-6823564.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Medical care" class="donation-image">
+                        <div class="image-overlay">
+                            <h3>Save Lives</h3>
+                            <p>Your donation matters</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.pexels.com/photos/6823570/pexels-photo-6823570.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Healthcare" class="donation-image">
+                        <div class="image-overlay">
+                            <h3>Make Impact</h3>
+                            <p>Join our community</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.pexels.com/photos/6823566/pexels-photo-6823566.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blood bag" class="donation-image">
+                        <div class="image-overlay">
+                            <h3>Give Hope</h3>
+                            <p>Every drop counts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div id="signUpPage" class="page-section">
+        <div class="auth-container">
+            <!-- Left Panel -->
+            <div class="auth-left">
+                <div class="auth-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    <h1>Join our community</h1>
+                    <p>Create your account and start making a difference in people's lives.</p>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="auth-right">
+                <div class="auth-form-container">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p>Please fill in your information to get started</p>
+                    </div>
+
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                            <div class="password-hint">At least 6 characters</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" onclick="showSignIn()">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Page -->
+    <div id="signInPage" class="page-section">
+        <div class="auth-container">
+            <!-- Left Panel -->
+            <div class="auth-left">
+                <div class="auth-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    <h1>Welcome back</h1>
+                    <p>Sign in to your account and continue making a difference.</p>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="auth-right">
+                <div class="auth-form-container">
+                    <div class="auth-header">
+                        <h2>Sign In</h2>
+                        <p>Enter your credentials to access your account</p>
+                    </div>
+
+                    <form id="signinForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="signinEmail">Email Address</label>
+                            <input type="email" id="signinEmail" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signinPassword">Password</label>
+                            <input type="password" id="signinPassword" name="password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" onclick="showSignUp()">Create one</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Role Selection Page -->
+    <div id="mainPage" class="page-section">
+        <div class="main-container">
+            <!-- Navigation Header -->
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    <div class="nav-actions">
+                        <span class="user-welcome">Welcome!</span>
+                        <a href="#" onclick="showLanding()" class="nav-link">Sign Out</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="role-selection-main">
+                <div class="role-content">
+                    <div class="role-header">
+                        <h1 class="role-title">Choose Your Role</h1>
+                        <p class="role-subtitle">How would you like to contribute to our blood donation community?</p>
+                    </div>
+                    
+                    <div class="role-cards">
+                        <div class="role-card donor-card" onclick="showDonorPage()">
+                            <div class="card-icon donor-icon">🩸</div>
+                            <h3 class="card-title">Blood Donor</h3>
+                            <p class="card-description">Register as a blood donor and help save lives in your community. Your donation can make a real difference.</p>
+                            <div class="card-features">
+                                <div class="feature">✓ Quick registration</div>
+                                <div class="feature">✓ Find donation centers</div>
+                                <div class="feature">✓ Track your impact</div>
+                            </div>
+                            <div class="card-arrow">→</div>
+                        </div>
+                        
+                        <div class="role-card seeker-card" onclick="showSeekerPage()">
+                            <div class="card-icon seeker-icon">🔍</div>
+                            <h3 class="card-title">Find Donors</h3>
+                            <p class="card-description">Search for blood donors in your area when you need help. Connect with compatible donors quickly.</p>
+                            <div class="card-features">
+                                <div class="feature">✓ Advanced search</div>
+                                <div class="feature">✓ Location-based results</div>
+                                <div class="feature">✓ Instant contact</div>
+                            </div>
+                            <div class="card-arrow">→</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Features Section -->
+                    <div class="features-section">
+                        <h2 class="features-title">Why Choose BloodConnect?</h2>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🌍</div>
+                                <h3>Nationwide Network</h3>
+                                <p>Connect with donors across all states and districts in India</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">⚡</div>
+                                <h3>Instant Search</h3>
+                                <p>Find compatible donors in your area within seconds</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🔒</div>
+                                <h3>Secure & Private</h3>
+                                <p>Your personal information is protected and secure</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">📱</div>
+                                <h3>Easy to Use</h3>
+                                <p>Simple, intuitive interface designed for everyone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Donor Registration Page -->
+    <div id="donorPage" class="page-section">
+        <div class="page-container">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    <a href="#" onclick="showMainPage()" class="nav-link">← Back to Home</a>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Become a Blood Donor</h1>
+                        <p>Join our community of life-savers. Your donation can save up to 3 lives.</p>
+                    </div>
+
+                    <form id="donorForm" class="donor-form">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Personal Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="donorFirstName">First Name</label>
+                                    <input type="text" id="donorFirstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donorLastName">Last Name</label>
+                                    <input type="text" id="donorLastName" name="lastName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donorContact">Contact Number</label>
+                                    <input type="tel" id="donorContact" name="contact" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donorEmail">Email Address</label>
+                                    <input type="email" id="donorEmail" name="email" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Security -->
+                        <div class="form-section">
+                            <h3 class="section-title">Account Security</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="donorPassword">Password</label>
+                                    <input type="password" id="donorPassword" name="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donorConfirmPassword">Confirm Password</label>
+                                    <input type="password" id="donorConfirmPassword" name="confirmPassword" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Demographics -->
+                        <div class="form-section">
+                            <h3 class="section-title">Demographics</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="Male" required>
+                                            <span class="radio-custom"></span>
+                                            Male
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="Female" required>
+                                            <span class="radio-custom"></span>
+                                            Female
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="Other" required>
+                                            <span class="radio-custom"></span>
+                                            Other
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="number" id="age" name="age" min="18" max="65" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Location Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" id="country" name="country" value="India" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <select id="state" name="state" required>
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="district">District</label>
+                                    <select id="district" name="district" required>
+                                        <option value="">Select District</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pincode">Pincode</label>
+                                    <select id="pincode" name="pincode" required>
+                                        <option value="">Select Pincode</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Medical Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="bloodGroup">Blood Group</label>
+                                    <select id="bloodGroup" name="bloodGroup" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bloodPercentage">Blood Percentage</label>
+                                    <select id="bloodPercentage" name="bloodPercentage" required>
+                                        <option value="">Select Percentage</option>
+                                        <option value="12.0-15.5">12.0-15.5 g/dL (Normal)</option>
+                                        <option value="15.6-17.5">15.6-17.5 g/dL (High Normal)</option>
+                                        <option value="11.0-11.9">11.0-11.9 g/dL (Low Normal)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Upload -->
+                        <div class="form-section">
+                            <h3 class="section-title">Identity Verification</h3>
+                            <div class="form-group">
+                                <label for="aadhaar">Aadhaar Proof</label>
+                                <div class="file-upload">
+                                    <input type="file" id="aadhaar" name="aadhaar" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="aadhaar" class="file-upload-label">
+                                        <span class="file-upload-icon">📄</span>
+                                        <span class="file-upload-text">Choose file or drag here</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Location Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Current Location</h3>
+                            <div class="location-section">
+                                <button type="button" id="getCurrentLocationBtn" class="btn btn-secondary">
+                                    <span class="btn-icon">📍</span>
+                                    Get Current Location
+                                </button>
+                                <div id="locationDisplay" class="location-display">
+                                    <div class="coordinates-display">
+                                        <div class="coordinate-item">
+                                            <div class="coordinate-label">Latitude</div>
+                                            <div class="coordinate-value" id="latitudeValue">--</div>
+                                        </div>
+                                        <div class="coordinate-item">
+                                            <div class="coordinate-label">Longitude</div>
+                                            <div class="coordinate-value" id="longitudeValue">--</div>
+                                        </div>
+                                    </div>
+                                    <div class="map-container">
+                                        <div class="map-display">
+                                            <div class="map-grid"></div>
+                                            <div class="map-marker">📍</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Register as Donor</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Seeker Page -->
+    <div id="seekerPage" class="page-section">
+        <div class="page-container">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div class="logo">
+                        <span class="logo-icon">🩸</span>
+                        <span class="logo-text">BloodConnect</span>
+                    </div>
+                    <a href="#" onclick="showMainPage()" class="nav-link">← Back to Home</a>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Find Blood Donors</h1>
+                        <p>Search for compatible blood donors in your area when you need help.</p>
+                    </div>
+
+                    <form id="seekerForm" class="seeker-form">
+                        <div class="form-section">
+                            <h3 class="section-title">Search Criteria</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="seekerBloodType">Blood Type Needed</label>
+                                    <select id="seekerBloodType" name="bloodType" required>
+                                        <option value="">Select Blood Type</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="seekerState">State</label>
+                                    <select id="seekerState" name="state" required>
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="seekerDistrict">District</label>
+                                    <select id="seekerDistrict" name="district" required>
+                                        <option value="">Select District</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Search Donors</button>
+                    </form>
+
+                    <!-- Search Results -->
+                    <div id="resultsContainer" class="results-container">
+                        <div class="results-header">
+                            <h3>Search Results</h3>
+                            <div id="resultsCount" class="results-count"></div>
+                        </div>
+                        <div id="donorResults" class="donor-results"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalIcon" class="modal-icon"></div>
+                <p id="modalMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Storage Manager Class
+        class StorageManager {
+            constructor() {
+                this.maxStorageSize = 10 * 1024 * 1024; // 10MB
+                this.compressionEnabled = true;
+            }
+
+            // Check storage usage
+            getStorageUsage() {
+                let total = 0;
+                for (let key in localStorage) {
+                    if (localStorage.hasOwnProperty(key)) {
+                        total += localStorage[key].length + key.length;
+                    }
+                }
+                return total;
+            }
+
+            // Compress data before storing
+            compressData(data) {
+                if (!this.compressionEnabled) return data;
+                try {
+                    return JSON.stringify(data);
+                } catch (e) {
+                    console.warn('Compression failed:', e);
+                    return data;
+                }
+            }
+
+            // Decompress data after retrieving
+            decompressData(data) {
+                if (!this.compressionEnabled) return data;
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    return data;
+                }
+            }
+
+            // Clean old data if storage is full
+            cleanupStorage() {
+                const keys = Object.keys(localStorage);
+                const dataKeys = keys.filter(key => key.startsWith('bloodconnect_'));
+                
+                if (dataKeys.length > 1000) {
+                    // Remove oldest entries
+                    dataKeys.slice(0, 100).forEach(key => {
+                        localStorage.removeItem(key);
+                    });
+                }
+            }
+
+            // Safe storage with error handling
+            setItem(key, value) {
+                try {
+                    const compressedData = this.compressData(value);
+                    const dataSize = JSON.stringify(compressedData).length;
+                    
+                    if (this.getStorageUsage() + dataSize > this.maxStorageSize) {
+                        this.cleanupStorage();
+                    }
+                    
+                    localStorage.setItem(key, compressedData);
+                    return true;
+                } catch (e) {
+                    if (e.name === 'QuotaExceededError') {
+                        this.cleanupStorage();
+                        try {
+                            localStorage.setItem(key, this.compressData(value));
+                            return true;
+                        } catch (e2) {
+                            console.error('Storage quota exceeded even after cleanup:', e2);
+                            return false;
+                        }
+                    }
+                    console.error('Storage error:', e);
+                    return false;
+                }
+            }
+
+            // Safe retrieval with error handling
+            getItem(key) {
+                try {
+                    const data = localStorage.getItem(key);
+                    return data ? this.decompressData(data) : null;
+                } catch (e) {
+                    console.error('Retrieval error:', e);
+                    return null;
+                }
+            }
+
+            // Get all items with prefix
+            getAllItems(prefix) {
+                const items = [];
+                for (let key in localStorage) {
+                    if (key.startsWith(prefix)) {
+                        const data = this.getItem(key);
+                        if (data) items.push(data);
+                    }
+                }
+                return items;
+            }
+        }
+
+        // Initialize storage manager
+        const storage = new StorageManager();
+
+        // Indian States and Districts Data
+        const statesData = {
+            "Andhra Pradesh": {
+                districts: ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari", "YSR Kadapa"],
+                pincodes: ["515001", "517001", "533001", "522001", "521001", "518001", "524001", "523001", "532001", "530001", "535001", "534001", "516001"]
+            },
+            "Arunachal Pradesh": {
+                districts: ["Anjaw", "Changlang", "Dibang Valley", "East Kameng", "East Siang", "Kamle", "Kra Daadi", "Kurung Kumey", "Lepa Rada", "Lohit", "Longding", "Lower Dibang Valley", "Lower Siang", "Lower Subansiri", "Namsai", "Pakke Kessang", "Papum Pare", "Shi Yomi", "Siang", "Tawang", "Tirap", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
+                pincodes: ["792101", "792001", "786001", "790001", "791001", "791001", "791001", "791001", "791001", "792001", "792001", "792001", "791001", "791001", "792001", "790001", "791001", "791001", "791001", "790001", "792001", "791001", "791001", "790001", "791001"]
+            },
+            "Assam": {
+                districts: ["Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Goalpara", "Golaghat", "Hailakandi", "Hojai", "Jorhat", "Kamrup", "Kamrup Metropolitan", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", "Nalbari", "Dima Hasao", "Sivasagar", "Sonitpur", "South Salmara-Mankachar", "Tinsukia", "Udalguri", "West Karbi Anglong"],
+                pincodes: ["781001", "781301", "784001", "783380", "788001", "785001", "783380", "784001", "787001", "783301", "786001", "783101", "785001", "788001", "782001", "785001", "781001", "781001", "782001", "788710", "783370", "787001", "785001", "782001", "782001", "781335", "788001", "785640", "784001", "783380", "786125", "784509", "782002"]
+            },
+            "Bihar": {
+                districts: ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
+                pincodes: ["854001", "804401", "824101", "813101", "851101", "812001", "802001", "802101", "846001", "845401", "823001", "841428", "811307", "804408", "821104", "854105", "851204", "855107", "811311", "852113", "847211", "811201", "842001", "803101", "805110", "800001", "854301", "821305", "852201", "848101", "841301", "811105", "843329", "843302", "841226", "847239", "844101", "845438"]
+            },
+            "Chhattisgarh": {
+                districts: ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", "Bilaspur", "Dantewada", "Dhamtari", "Durg", "Gariaband", "Gaurela Pendra Marwahi", "Janjgir Champa", "Jashpur", "Kabirdham", "Kanker", "Kondagaon", "Korba", "Koriya", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", "Rajnandgaon", "Sukma", "Surajpur", "Surguja"],
+                pincodes: ["491226", "493332", "497001", "494001", "491335", "494221", "495001", "494449", "493773", "491001", "493889", "495117", "495668", "496001", "491995", "494334", "494635", "495677", "497335", "493445", "495334", "494661", "496001", "492001", "491441", "494111", "497229", "497001"]
+            },
+            "Goa": {
+                districts: ["North Goa", "South Goa"],
+                pincodes: ["403001", "403601"]
+            },
+            "Gujarat": {
+                districts: ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod", "Dang", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kheda", "Kutch", "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Tapi", "Vadodara", "Valsad"],
+                pincodes: ["380001", "365601", "388001", "383001", "385001", "392001", "364001", "364710", "391165", "389151", "394701", "361335", "382001", "362001", "361001", "362001", "387001", "370001", "389230", "384001", "363641", "393001", "396001", "389001", "384265", "360575", "360001", "383001", "395001", "363001", "394650", "390001", "396001"]
+            },
+            "Haryana": {
+                districts: ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Nuh", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
+                pincodes: ["134001", "127001", "127306", "121001", "125001", "122001", "125001", "124103", "126102", "136027", "132001", "136118", "123001", "122107", "121102", "134109", "132103", "123401", "124001", "125055", "131001", "135001"]
+            },
+            "Himachal Pradesh": {
+                districts: ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
+                pincodes: ["174001", "176310", "177001", "176001", "172001", "175001", "175001", "175001", "171001", "173001", "173212", "177001"]
+            },
+            "Jharkhand": {
+                districts: ["Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribagh", "Jamtara", "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", "Ramgarh", "Ranchi", "Sahebganj", "Seraikela Kharsawan", "Simdega", "West Singhbhum"],
+                pincodes: ["827001", "825401", "814112", "826001", "814101", "831001", "822114", "815301", "814133", "835207", "825301", "815351", "835210", "825409", "829207", "835302", "816107", "822101", "829122", "834001", "816109", "833201", "835223", "833201"]
+            },
+            "Karnataka": {
+                districts: ["Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural", "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davangere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru", "Raichur", "Ramanagara", "Shivamogga", "Tumakuru", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"],
+                pincodes: ["587101", "583101", "590001", "562001", "560001", "585401", "571313", "562101", "577101", "577501", "575001", "577001", "580001", "582101", "573201", "581110", "585101", "571201", "563101", "583231", "571401", "570001", "584101", "562159", "577201", "572101", "576101", "581301", "586101", "585202"]
+            },
+            "Kerala": {
+                districts: ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
+                pincodes: ["688001", "682001", "685001", "670001", "671121", "691001", "686001", "673001", "676101", "678001", "689645", "695001", "680001", "673592"]
+            },
+            "Madhya Pradesh": {
+                districts: ["Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chachaura", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Maihar", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Niwari", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
+                pincodes: ["465441", "457887", "484224", "473331", "481001", "451001", "460001", "477001", "462001", "450331", "470117", "471001", "480001", "470661", "475661", "455001", "454001", "481880", "473001", "474001", "461331", "461001", "452001", "482001", "457661", "483501", "450001", "451001", "485771", "481661", "458001", "476001", "487001", "458441", "472001", "488001", "464001", "465001", "457001", "486001", "470001", "485001", "466001", "480661", "484001", "465001", "476337", "473551", "486661", "486889", "472001", "456001", "484661", "464001"]
+            },
+            "Maharashtra": {
+                districts: ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
+                pincodes: ["414001", "444001", "444601", "431001", "431122", "441904", "443001", "442401", "424001", "442605", "441601", "431513", "425001", "431203", "416001", "413512", "400001", "400001", "440001", "431601", "425412", "422001", "413501", "401404", "431401", "411001", "402001", "415612", "416416", "415001", "416613", "413001", "400601", "442001", "444505", "445001"]
+            },
+            "Manipur": {
+                districts: ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
+                pincodes: ["795126", "795127", "795128", "795001", "795001", "795116", "795138", "795129", "795130", "795123", "795131", "795106", "795141", "795142", "795113", "795142"]
+            },
+            "Meghalaya": {
+                districts: ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"],
+                pincodes: ["794001", "793200", "793001", "794001", "793103", "794001", "794001", "793119", "794001", "793200", "793119"]
+            },
+            "Mizoram": {
+                districts: ["Aizawl", "Champhai", "Hnahthial", "Kolasib", "Khawzawl", "Lawngtlai", "Lunglei", "Mamit", "Saiha", "Saitual", "Serchhip"],
+                pincodes: ["796001", "796321", "796014", "796081", "796310", "796781", "796701", "796441", "796901", "796014", "796181"]
+            },
+            "Nagaland": {
+                districts: ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Noklak", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
+                pincodes: ["797112", "798613", "797001", "798621", "798601", "798621", "798613", "797131", "797107", "798612", "797111", "798627"]
+            },
+            "Odisha": {
+                districts: ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghpur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh"],
+                pincodes: ["759122", "767001", "756001", "768028", "756100", "762014", "753001", "768108", "759001", "761001", "760001", "754103", "755001", "768201", "766001", "762001", "754212", "758001", "751001", "764020", "764045", "757001", "764059", "752069", "766105", "752001", "765001", "768001", "767033", "770001"]
+            },
+            "Punjab": {
+                districts: ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Muktsar", "Pathankot", "Patiala", "Rupnagar", "Sahibzada Ajit Singh Nagar", "Sangrur", "Shaheed Bhagat Singh Nagar", "Tarn Taran"],
+                pincodes: ["143001", "148101", "151001", "151203", "140407", "152123", "152002", "143521", "146001", "144001", "144601", "141001", "151505", "142001", "152026", "145001", "147001", "140001", "160001", "148001", "144533", "143401"]
+            },
+            "Rajasthan": {
+                districts: ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Ganganagar", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Tonk", "Udaipur"],
+                pincodes: ["305001", "301001", "327001", "325205", "344001", "321001", "311001", "334001", "323001", "312001", "331001", "303303", "328001", "314001", "335001", "335512", "302001", "345001", "343001", "326001", "333001", "342001", "322001", "324001", "341001", "306401", "312605", "313324", "322001", "332001", "307001", "304001", "313001"]
+            },
+            "Sikkim": {
+                districts: ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
+                pincodes: ["737101", "737116", "737121", "737101"]
+            },
+            "Tamil Nadu": {
+                districts: ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga", "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tirupattur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram"],
+                pincodes: ["621704", "603001", "600001", "641001", "607001", "636701", "624001", "638001", "606202", "631501", "629001", "639001", "635001", "625001", "609001", "611001", "637001", "643001", "621212", "622001", "623501", "632401", "636001", "630561", "627804", "613001", "625531", "628001", "620001", "627001", "635601", "641601", "602001", "606601", "610001", "632001", "605601"]
+            },
+            "Telangana": {
+                districts: ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar", "Jogulamba", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem", "Mahabubabad", "Mahbubnagar", "Mancherial", "Medak", "Medchal", "Mulugu", "Nagarkurnool", "Nalgonda", "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Ranga Reddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal Rural", "Warangal Urban", "Yadadri Bhuvanagiri"],
+                pincodes: ["504001", "507101", "500001", "505327", "506167", "506172", "509125", "503111", "505001", "507001", "504293", "506101", "509001", "504208", "502001", "501401", "506343", "509209", "508001", "509210", "504106", "503001", "505172", "505301", "501301", "502001", "502103", "508213", "501101", "509103", "506001", "506002", "508116"]
+            },
+            "Tripura": {
+                districts: ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", "Unakoti", "West Tripura"],
+                pincodes: ["799001", "799001", "799201", "799001", "799001", "799001", "799270", "799001"]
+            },
+            "Uttar Pradesh": {
+                districts: ["Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", "Ayodhya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kasganj", "Kaushambi", "Kheri", "Kushinagar", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", "Prayagraj", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shrawasti", "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpur", "Unnao", "Varanasi"],
+                pincodes: ["282001", "202001", "224122", "227405", "244221", "206241", "224001", "276001", "250601", "271801", "277001", "271201", "210001", "225001", "243001", "272001", "221401", "246701", "243601", "203001", "232101", "210205", "274001", "207001", "206001", "207001", "212601", "283203", "201301", "201001", "233001", "271001", "273001", "210301", "245101", "241001", "204101", "285001", "222001", "284001", "209601", "209625", "208001", "207123", "212201", "262701", "274403", "284403", "226001", "273303", "210427", "205001", "281001", "275101", "250001", "231001", "244001", "251001", "262001", "230001", "211001", "229001", "244901", "247001", "244302", "272175", "242001", "247776", "271845", "272207", "261001", "231217", "228001", "209801", "221001"]
+            },
+            "Uttarakhand": {
+                districts: ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
+                pincodes: ["263601", "263642", "246401", "262523", "248001", "249401", "263001", "246001", "262501", "246171", "249001", "263153", "249193"]
+            },
+            "West Bengal": {
+                districts: ["Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur", "Purulia", "South 24 Parganas", "Uttar Dinajpur"],
+                pincodes: ["736121", "722101", "731101", "736101", "733121", "734101", "712601", "711101", "735101", "721507", "734301", "700001", "732101", "742101", "741101", "743101", "713101", "721101", "713101", "721601", "723101", "743201", "733201"]
+            }
+        };
+
+        // Page Navigation Functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function showLanding() {
+            showPage('landingPage');
+        }
+
+        function showSignUp() {
+            showPage('signUpPage');
+        }
+
+        function showSignIn() {
+            showPage('signInPage');
+        }
+
+        function showMainPage() {
+            showPage('mainPage');
+        }
+
+        function showDonorPage() {
+            showPage('donorPage');
+            populateStates('state');
+        }
+
+        function showSeekerPage() {
+            showPage('seekerPage');
+            populateStates('seekerState');
+        }
+
+        // Populate states dropdown
+        function populateStates(selectId) {
+            const stateSelect = document.getElementById(selectId);
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+            
+            Object.keys(statesData).forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        // Populate districts based on selected state
+        function populateDistricts(stateSelectId, districtSelectId) {
+            const stateSelect = document.getElementById(stateSelectId);
+            const districtSelect = document.getElementById(districtSelectId);
+            const selectedState = stateSelect.value;
+            
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+            
+            if (selectedState && statesData[selectedState]) {
+                statesData[selectedState].districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Populate pincodes based on selected state
+        function populatePincodes(stateSelectId, pincodeSelectId) {
+            const stateSelect = document.getElementById(stateSelectId);
+            const pincodeSelect = document.getElementById(pincodeSelectId);
+            const selectedState = stateSelect.value;
+            
+            pincodeSelect.innerHTML = '<option value="">Select Pincode</option>';
+            
+            if (selectedState && statesData[selectedState]) {
+                statesData[selectedState].pincodes.forEach(pincode => {
+                    const option = document.createElement('option');
+                    option.value = pincode;
+                    option.textContent = pincode;
+                    pincodeSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Check for duplicate entries
+        function checkDuplicateUser(email) {
+            const users = storage.getAllItems('bloodconnect_user_');
+            return users.some(user => user.email === email);
+        }
+
+        function checkDuplicateDonor(email, contact) {
+            const donors = storage.getAllItems('bloodconnect_donor_');
+            return donors.some(donor => donor.email === email || donor.contact === contact);
+        }
+
+        // Show modal with message
+        function showModal(message, type = 'info') {
+            const modal = document.getElementById('messageModal');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalMessage = document.getElementById('modalMessage');
+            
+            modalIcon.className = `modal-icon ${type}`;
+            modalMessage.textContent = message;
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            const locationBtn = document.getElementById('getCurrentLocationBtn');
+            const locationDisplay = document.getElementById('locationDisplay');
+            const latitudeValue = document.getElementById('latitudeValue');
+            const longitudeValue = document.getElementById('longitudeValue');
+            
+            if (!navigator.geolocation) {
+                showModal('Geolocation is not supported by this browser.', 'error');
+                return;
+            }
+            
+            locationBtn.textContent = 'Getting Location...';
+            locationBtn.disabled = true;
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const latitude = position.coords.latitude.toFixed(6);
+                    const longitude = position.coords.longitude.toFixed(6);
+                    
+                    latitudeValue.textContent = latitude;
+                    longitudeValue.textContent = longitude;
+                    locationDisplay.classList.add('show');
+                    
+                    // Store coordinates for form submission
+                    window.currentLocation = { latitude, longitude };
+                    
+                    locationBtn.textContent = 'Location Retrieved ✓';
+                    locationBtn.style.backgroundColor = 'var(--success-color)';
+                },
+                function(error) {
+                    let errorMessage = 'Unable to retrieve location.';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = 'Location access denied by user.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = 'Location information is unavailable.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = 'Location request timed out.';
+                            break;
+                    }
+                    showModal(errorMessage, 'error');
+                    locationBtn.textContent = 'Get Current Location';
+                    locationBtn.disabled = false;
+                }
+            );
+        }
+
+        // Form submission handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sign Up Form
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const userData = Object.fromEntries(formData);
+                    
+                    // Validation
+                    if (userData.password !== userData.confirmPassword) {
+                        showModal('Passwords do not match!', 'error');
+                        return;
+                    }
+                    
+                    if (userData.password.length < 6) {
+                        showModal('Password must be at least 6 characters long!', 'error');
+                        return;
+                    }
+                    
+                    // Check for duplicate
+                    if (checkDuplicateUser(userData.email)) {
+                        showModal('An account with this email already exists!', 'error');
+                        return;
+                    }
+                    
+                    // Store user data
+                    const userId = 'bloodconnect_user_' + Date.now();
+                    if (storage.setItem(userId, userData)) {
+                        showModal('Account created successfully!', 'success');
+                        setTimeout(() => {
+                            closeModal();
+                            showMainPage();
+                        }, 2000);
+                    } else {
+                        showModal('Failed to create account. Storage error.', 'error');
+                    }
+                });
+            }
+            
+            // Sign In Form
+            const signinForm = document.getElementById('signinForm');
+            if (signinForm) {
+                signinForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const loginData = Object.fromEntries(formData);
+                    
+                    // Check credentials
+                    const users = storage.getAllItems('bloodconnect_user_');
+                    const user = users.find(u => u.email === loginData.email && u.password === loginData.password);
+                    
+                    if (user) {
+                        showModal('Sign in successful!', 'success');
+                        setTimeout(() => {
+                            closeModal();
+                            showMainPage();
+                        }, 2000);
+                    } else {
+                        showModal('Invalid email or password!', 'error');
+                    }
+                });
+            }
+            
+            // Donor Form
+            const donorForm = document.getElementById('donorForm');
+            if (donorForm) {
+                donorForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const donorData = Object.fromEntries(formData);
+                    
+                    // Validation
+                    if (donorData.password !== donorData.confirmPassword) {
+                        showModal('Passwords do not match!', 'error');
+                        return;
+                    }
+                    
+                    // Check for duplicates
+                    if (checkDuplicateDonor(donorData.email, donorData.contact)) {
+                        showModal('A donor with this email or contact number already exists!', 'error');
+                        return;
+                    }
+                    
+                    // Add location data if available
+                    if (window.currentLocation) {
+                        donorData.latitude = window.currentLocation.latitude;
+                        donorData.longitude = window.currentLocation.longitude;
+                    }
+                    
+                    // Store donor data
+                    const donorId = 'bloodconnect_donor_' + Date.now();
+                    if (storage.setItem(donorId, donorData)) {
+                        showModal('Donor registration successful!', 'success');
+                        setTimeout(() => {
+                            closeModal();
+                            showMainPage();
+                        }, 2000);
+                    } else {
+                        showModal('Failed to register donor. Storage error.', 'error');
+                    }
+                });
+            }
+            
+            // Seeker Form
+            const seekerForm = document.getElementById('seekerForm');
+            if (seekerForm) {
+                seekerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const searchData = Object.fromEntries(formData);
+                    
+                    // Search for donors
+                    const donors = storage.getAllItems('bloodconnect_donor_');
+                    const matchingDonors = donors.filter(donor => {
+                        return donor.bloodGroup === searchData.bloodType &&
+                               donor.state === searchData.state &&
+                               donor.district === searchData.district;
+                    });
+                    
+                    // Display results
+                    displaySearchResults(matchingDonors);
+                });
+            }
+            
+            // State change handlers
+            const stateSelect = document.getElementById('state');
+            if (stateSelect) {
+                stateSelect.addEventListener('change', function() {
+                    populateDistricts('state', 'district');
+                    populatePincodes('state', 'pincode');
+                });
+            }
+            
+            const seekerStateSelect = document.getElementById('seekerState');
+            if (seekerStateSelect) {
+                seekerStateSelect.addEventListener('change', function() {
+                    populateDistricts('seekerState', 'seekerDistrict');
+                });
+            }
+            
+            // Location button handler
+            const locationBtn = document.getElementById('getCurrentLocationBtn');
+            if (locationBtn) {
+                locationBtn.addEventListener('click', getCurrentLocation);
+            }
+            
+            // Modal close handler
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('messageModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Display search results
+        function displaySearchResults(donors) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultsCount = document.getElementById('resultsCount');
+            const donorResults = document.getElementById('donorResults');
+            
+            resultsCount.textContent = `${donors.length} donor(s) found`;
+            
+            if (donors.length === 0) {
+                donorResults.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3>No Donors Found</h3>
+                        <p>No donors found matching your criteria. Try expanding your search area.</p>
+                    </div>
+                `;
+            } else {
+                donorResults.innerHTML = donors.map(donor => `
+                    <div class="donor-card-result">
+                        <div class="donor-info">
+                            <div class="donor-field">
+                                <div class="donor-field-label">Name</div>
+                                <div class="donor-field-value">${donor.firstName} ${donor.lastName}</div>
+                            </div>
+                            <div class="donor-field">
+                                <div class="donor-field-label">Blood Group</div>
+                                <div class="donor-field-value">
+                                    <span class="blood-group-badge">${donor.bloodGroup}</span>
+                                </div>
+                            </div>
+                            <div class="donor-field">
+                                <div class="donor-field-label">Contact</div>
+                                <div class="donor-field-value">${donor.contact}</div>
+                            </div>
+                            <div class="donor-field">
+                                <div class="donor-field-label">Location</div>
+                                <div class="donor-field-value">${donor.district}, ${donor.state}</div>
+                            </div>
+                            <div class="donor-field">
+                                <div class="donor-field-label">Age</div>
+                                <div class="donor-field-value">${donor.age} years</div>
+                            </div>
+                            <div class="donor-field">
+                                <div class="donor-field-label">Gender</div>
+                                <div class="donor-field-value">${donor.gender}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            resultsContainer.classList.add('show');
+        }
+    </script>
+</body>
+</html>
