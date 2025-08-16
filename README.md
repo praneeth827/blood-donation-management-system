@@ -41,17 +41,6 @@ Google Fonts: Inter font family for a professional typography experience.
 
 External Resources: Placeholder images from Pexels for the landing page.
 
-Installation
-
-
-
-
-
-Clone the repository:
-
-git clone https://github.com/your-username/BloodConnect.git
-
-
 
 
 
